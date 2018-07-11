@@ -10,4 +10,5 @@ from django.shortcuts import render
 @renderer_classes((JSONRenderer,))
 def rating_view(request, format=None):
 	#A View used to rate a post/object: Get what something is in request.
-		return Response()
+	
+	return Response()

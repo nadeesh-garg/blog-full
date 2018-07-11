@@ -19,9 +19,11 @@ from django.contrib.auth.models import User
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers
+#from rest_framework.urlpatterns import format_suffix_patterns
 from userprofile import views as profileviews
 from blogseries import views as blogviews
 from rest_framework_jwt.views import obtain_jwt_token
+
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
@@ -29,17 +31,26 @@ router.register(r'users', profileviews.UserViewSet)
 router.register(r'groups', profileviews.GroupViewSet)
 router.register(r'profiles', profileviews.ProfileViewSet)
 router.register(r'series', blogviews.SeriesViewSet)
-router.register(r'blogs', blogviews.BlogViewSet)
+router.register(r'blog', blogviews.BlogViewSet)
+router.register(r'blogs', blogviews.BlogListViewSet)
+
+#mytestobj = blogviews.BlogViewSet.as_view(REQDICT, lookup_field='slug')
+
 
 urlpatterns = [
 	url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
     url(r'^summernote/', include('django_summernote.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),	
+    url(r'^api-auth/', include('rest_framework.urls', namespace='myapp')),	
     url(r'api/all-blogs', blogviews.blog_url_list, name = 'all_blogs'),
     url(r'api/genre-list', blogviews.AllGenresView, name ='all_genres'),
-    url(r'api/tag-list', blogviews.AllTagsView, name = 'all_tags')
+    url(r'api/tag-list', blogviews.AllTagsView, name = 'all_tags'),
+    url(r'api/blogresponse', blogviews.UserResponseView, name = 'blog_response'),
+    
+    #url(r'^api/blogs/(?P<slug>[-\w]+)/$', mytestobj, name = 'blogset')
     #url(r'^api-token-auth/', obtain_jwt_token),	
 ]
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+#urlpatterns = format_suffix_patterns(urlpatterns)

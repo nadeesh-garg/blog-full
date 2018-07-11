@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'blogseries.apps.BlogseriesConfig',
     'userprofile.apps.UserprofileConfig',
+    'user_responses.apps.UserResponsesConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,7 +133,7 @@ USE_L10N = True
 
 USE_TZ = False
 
-SERIALIZATION_MODULES = {
+SERIALIZATION_MODULES =  {
     'xml':    'tagulous.serializers.xml_serializer',
     'json':   'tagulous.serializers.json',
     'python': 'tagulous.serializers.python',
@@ -171,7 +172,10 @@ REST_FRAMEWORK = {
 
 #TODO: Summernote-source needs to be edited to allow footnote, link plugin
 
-
+SUMMERNOTE_CONFIG = {
+    'width': '100%',
+    'height': '900',
+}
 
 '''
 SUMMERNOTE_CONFIG = {

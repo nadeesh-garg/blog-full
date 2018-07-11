@@ -13,7 +13,7 @@ class Series(models.Model):
 	#tags = TagField(force_lowercase = True, max_count = 10)
 	create_date = models.DateTimeField(default=datetime.now, blank=True)
 	slug = models.SlugField(unique=True, max_length=100, blank = True)
-	image = models.ImageField(upload_to='series_images', blank = True)
+	image = models.ImageField(upload_to='series_images', blank = True, null=True)
 	def __str__(self):
 		return self.title
 	def save(self, *args, **kwargs):
@@ -40,6 +40,8 @@ class Blog(models.Model):
 	slug = models.SlugField(unique=True, max_length=255, blank = True)
 	create_date = models.DateTimeField(default=datetime.now, blank=True)
 	pub_date = models.DateTimeField(blank=True, null=True)
+	pos_responses = models.PositiveIntegerField(default = 0)
+	neg_responses = models.PositiveIntegerField(default = 0)
 	def __str__(self):
 		return self.title
 	def save(self, *args, **kwargs):
