@@ -38,7 +38,7 @@ class BlogModelAdmin(SummernoteModelAdmin):
 			return qs
 		return qs.filter(author=request.user.profile)
 	def save_model(self, request, obj, form, change):
-		import pdb; pdb.set_trace()
+		#import pdb; pdb.set_trace()
 		if obj is not None and not request.user.is_superuser and not request.user.has_perm("userprofile.is_moderator"):
 			obj.author = request.user.profile
 		elif obj.author_id == None:

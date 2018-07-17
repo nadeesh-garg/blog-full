@@ -175,7 +175,7 @@ REST_FRAMEWORK = {
 #TODO: Summernote-source needs to be edited to allow footnote, link plugin
 
 SUMMERNOTE_CONFIG = {
-    'width': '100%',
+    'width': '82%',
     'height': '900',
 }
 
