@@ -1,5 +1,5 @@
 from django.db import models
-from tagulous.models import SingleTagField, TagField
+from tagulous.models import TagField
 from userprofile.models import Profile
 from datetime import datetime
 from utilities import unique_slug_generator
@@ -7,7 +7,7 @@ from utilities import unique_slug_generator
 
 class Series(models.Model):
 	title = models.CharField(max_length=150)
-	genre = SingleTagField(force_lowercase = True)
+	genre = TagField(force_lowercase = True, max_count=5)
 	description = models.CharField(max_length=255, blank = True, null=True)
 	creator = models.ForeignKey(Profile, blank=True, null=True)
 	#tags = TagField(force_lowercase = True, max_count = 10)
@@ -18,7 +18,7 @@ class Series(models.Model):
 		return self.title
 	def save(self, *args, **kwargs):
 		if(not self.slug):
-			self.slug = unique_slug_generator(self)
+			self.slug = unique_slug_generator(self, 'title')
 		super().save(*args, **kwargs)  # Call the "real" save() method.
 			
 
@@ -33,7 +33,7 @@ class Blog(models.Model):
 	series = models.ForeignKey(Series, blank = True, null=True)
 	title = models.CharField(max_length=150)
 	description = models.CharField(max_length=255)
-	tags = TagField(force_lowercase = True, max_count = 5)
+	tags = TagField(force_lowercase = True, max_count = 8)
 	content = models.TextField(blank = True)
 	hidden_message = models.CharField(max_length = 100, blank=True, null=True)
 	publishable = models.BooleanField(default=False)
@@ -46,7 +46,7 @@ class Blog(models.Model):
 		return self.title
 	def save(self, *args, **kwargs):
 		if(not self.slug):
-			self.slug = unique_slug_generator(self)
+			self.slug = unique_slug_generator(self, 'title')
 		if(self.publishable):
 			self.pub_date = datetime.now()
 		super().save(*args, **kwargs)  # Call the "real" save() method.

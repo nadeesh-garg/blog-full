@@ -42,9 +42,13 @@ class BlogListViewSet(viewsets.ModelViewSet):
 				ser = Series.objects.get(slug = seriesslug)
 				return Blog.objects.filter(series = ser).filter(publishable = True).order_by('pub_date')
 			elif(self.request.query_params['userId'] != 'undefined'):
-				userId = int(self.request.query_params['userId'])
-				userprof = Profile.objects.filter(pk = userId)
-				return Blog.objects.filter(author = user).filter(publishable = True).order_by('pub_date')
+				try:
+					userId = int(self.request.query_params['userId'])
+					userprof = Profile.objects.filter(pk = userId)
+				except ValueError:
+					user_slug=self.request.query_params['userId']
+					userprof = Profile.objects.filter(slug = user_slug)
+				return Blog.objects.filter(author = userprof).filter(publishable = True).order_by('pub_date')
 			else:
 				return Blog.objects.filter(publishable = True).order_by('pub_date')
 		except KeyError:
@@ -84,7 +88,7 @@ class SeriesViewSet(viewsets.ModelViewSet):
 		try:
 			if(self.request.query_params['userId'] != 'undefined'):
 				userId = int(self.request.query_params['userId'])
-				userprof = Profile.objects.filter(pk = userId)
+				userprof = Profile.objects.filter(slug = userId)
 				return Series.objects.filter(creator = user).filter(publishable = True).order_by('pub_date')
 			else:
 				return Series.objects.all().order_by('create_date')

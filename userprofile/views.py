@@ -11,6 +11,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
     """
     queryset = Profile.objects.all().order_by('birth_date')
     serializer_class = UserProfileSerializer
+    lookup_field = 'slug'
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('date_joined')
