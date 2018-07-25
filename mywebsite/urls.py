@@ -35,11 +35,15 @@ router.register(r'blog', blogviews.BlogViewSet)
 router.register(r'blogs', blogviews.BlogListViewSet)
 
 #mytestobj = blogviews.BlogViewSet.as_view(REQDICT, lookup_field='slug')
+admin.site.site_header = "Admin Portal"
+admin.site.site_title = "IMSc Complex Systems Admin Portal"
+admin.site.index_title = "Welcome to Admin Portal"
 
 
 urlpatterns = [
 	url(r'^api/', include(router.urls)),
     url(r'^admin/', admin.site.urls),
+    #url(r'^edit_profile/', , name='edit_profile'),
     url(r'^summernote/', include('django_summernote.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='myapp')),	
     url(r'api/all-blogs', blogviews.blog_url_list, name = 'all_blogs'),

@@ -4,14 +4,14 @@ from .models import Series, Blog
 # Register your models here.
 
 # Apply summernote to all TextField in model.
-class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
+class SomeModelAdmin(admin.ModelAdmin):  # instead of ModelAdmin
 	exclude = ["slug"]
 	readonly_fields = ('creator', "create_date")
 	def get_queryset(self, request):
 		qs = super(SomeModelAdmin, self).get_queryset(request)
 		if request.user.is_superuser or request.user.has_perm("userprofile.is_moderator"):
 			return qs
-		return qs.filter(author=request.user.profile)
+		return qs.filter(creator=request.user.profile)
 	def save_model(self, request, obj, form, change):
 		if obj is not None and not request.user.is_superuser and not request.user.has_perm("userprofile.is_moderator"):
 			obj.creator = request.user.profile
@@ -32,6 +32,11 @@ class SomeModelAdmin(SummernoteModelAdmin):  # instead of ModelAdmin
 class BlogModelAdmin(SummernoteModelAdmin):
 	exclude = ["slug", "create_date"]
 	readonly_fields = ["author", "pub_date", "pos_responses", "neg_responses"]
+	actions = ["mark_publishable"]
+	list_per_page = 25
+	list_display=('title', 'publishable', 'pos_responses', 'neg_responses')
+	def mark_publishable(self, request, queryset):
+		queryset.update(publishable=True)
 	def get_queryset(self, request):
 		qs = super(BlogModelAdmin, self).get_queryset(request)
 		if request.user.is_superuser or request.user.has_perm("userprofile.is_moderator"):

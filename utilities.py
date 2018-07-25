@@ -14,7 +14,12 @@ def unique_slug_generator(instance, field_name, new_slug=None):
     if new_slug is not None:
         slug = new_slug
     else:
-        slug = slugify(getattr(instance, field_name))
+        field_tree = field_name.split(".")
+        obj=instance
+        for field in field_tree:
+            import pdb; pdb.set_trace()
+            obj=getattr(obj, field)
+        slug = slugify(obj)
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(slug=slug).exists()

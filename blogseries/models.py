@@ -7,8 +7,8 @@ from utilities import unique_slug_generator
 
 class Series(models.Model):
 	title = models.CharField(max_length=150)
-	genre = TagField(force_lowercase = True, max_count=5)
-	description = models.CharField(max_length=255, blank = True, null=True)
+	genre = TagField(force_lowercase = True, max_count=6)
+	description = models.TextField(blank = True, null=True)
 	creator = models.ForeignKey(Profile, blank=True, null=True)
 	#tags = TagField(force_lowercase = True, max_count = 10)
 	create_date = models.DateTimeField(default=datetime.now, blank=True)

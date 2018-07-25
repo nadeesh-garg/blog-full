@@ -20,7 +20,7 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 	interests= UserTagFieldSerializer(required = False, many=True)
 	class Meta:
 		model = Profile
-		fields = ('url', 'user', 'pen_name', 'bio', 'designation', 'birth_date', 'slug', 'image', 'interests')
+		fields = ('url', 'user', 'pen_name', 'bio_summary', 'bio_full', 'designation', 'birth_date', 'slug', 'image', 'interests')
 		lookup_field = 'slug'
 		extra_kwargs = {'url': {'lookup_field': 'slug'}}
 	def create(self, validated_data):
