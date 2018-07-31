@@ -21,7 +21,7 @@ class Profile(models.Model):
 	def save(self, *args, **kwargs):
 		if(not self.slug):
 			self.slug = unique_slug_generator(self, 'user.username')
-		super().save(*args, **kwargs)  # Call the "real" save() method.
+		super(Profile, self).save(*args, **kwargs)  # Call the "real" save() method.
 			
 	class Meta:
 		permissions = (
