@@ -21,6 +21,7 @@ class Profile(models.Model):
 	def save(self, *args, **kwargs):
 		if(not self.slug):
 			self.slug = unique_slug_generator(self, 'user.username')
+			self.pen_name = self.user.username
 		super(Profile, self).save(*args, **kwargs)  # Call the "real" save() method.
 			
 	class Meta:

@@ -17,7 +17,6 @@ def unique_slug_generator(instance, field_name, new_slug=None):
         field_tree = field_name.split(".")
         obj=instance
         for field in field_tree:
-            import pdb; pdb.set_trace()
             obj=getattr(obj, field)
         slug = slugify(obj)
 
