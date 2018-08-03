@@ -19,7 +19,7 @@ class Series(models.Model):
 	def save(self, *args, **kwargs):
 		if(not self.slug):
 			self.slug = unique_slug_generator(self, 'title')
-		super().save(*args, **kwargs)  # Call the "real" save() method.
+		super(Series, self).save(*args, **kwargs)  # Call the "real" save() method.
 			
 
 
@@ -49,7 +49,7 @@ class Blog(models.Model):
 			self.slug = unique_slug_generator(self, 'title')
 		if(self.publishable):
 			self.pub_date = datetime.now()
-		super().save(*args, **kwargs)  # Call the "real" save() method.
+		super(Blog, self).save(*args, **kwargs)  # Call the "real" save() method.
 		#do_something_else()
 
 	
