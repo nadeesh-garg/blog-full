@@ -35,9 +35,9 @@ router.register(r'blog', blogviews.BlogViewSet)
 router.register(r'blogs', blogviews.BlogListViewSet)
 
 #mytestobj = blogviews.BlogViewSet.as_view(REQDICT, lookup_field='slug')
-admin.site.site_header = "Admin Portal"
-admin.site.site_title = "IMSc Complex Systems Admin Portal"
-admin.site.index_title = "Welcome to Admin Portal"
+admin.site.site_header = "Bnc Admin"
+admin.site.site_title = "Beauty and the Creep Admin"
+admin.site.index_title = "Welcome Nigga. There is no return from here."
 
 
 urlpatterns = [
