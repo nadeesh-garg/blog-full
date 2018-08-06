@@ -8,6 +8,7 @@
 # Directories #
 ###############
 logs/
+static/
 media/
 
 # Specific files #
