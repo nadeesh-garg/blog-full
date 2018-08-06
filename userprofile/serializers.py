@@ -16,7 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
-	user = UserSerializer(required = False)
+	#user = UserSerializer(required = False)
 	interests= UserTagFieldSerializer(required = False, many=True)
 	class Meta:
 		model = Profile
