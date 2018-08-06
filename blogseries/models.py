@@ -32,7 +32,7 @@ class Blog(models.Model):
 	folder = models.CharField(max_length=2, choices = FOLDER_CHOICES, default = BLOG, blank = False)
 	series = models.ForeignKey(Series, blank = True, null=True)
 	title = models.CharField(max_length=150)
-	description = models.CharField(max_length=255)
+	description = models.TextField(blank=True)
 	tags = TagField(force_lowercase = True, max_count = 8)
 	content = models.TextField(blank = True)
 	hidden_message = models.CharField(max_length = 100, blank=True, null=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django_summernote.admin import SummernoteModelAdmin
+from django_summernote.widgets import SummernoteWidget
 from .models import Series, Blog
 # Register your models here.
 
@@ -29,12 +29,16 @@ class SomeModelAdmin(admin.ModelAdmin):  # instead of ModelAdmin
 	
 	
 
-class BlogModelAdmin(SummernoteModelAdmin):
+class BlogModelAdmin(admin.ModelAdmin):
 	exclude = ["slug", "create_date"]
 	readonly_fields = ["author", "pub_date", "pos_responses", "neg_responses"]
 	actions = ["mark_publishable"]
 	list_per_page = 25
 	list_display=('title', 'publishable', 'pos_responses', 'neg_responses')
+	def formfield_for_dbfield(self, db_field, **kwargs):
+		if db_field.name == 'content':
+			kwargs['widget'] = SummernoteWidget()
+		return super(BlogModelAdmin,self).formfield_for_dbfield(db_field,**kwargs)
 	def mark_publishable(self, request, queryset):
 		queryset.update(publishable=True)
 	def get_queryset(self, request):
