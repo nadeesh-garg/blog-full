@@ -15,7 +15,7 @@ django-heroku==0.3.1
 django-rest-framework==0.1.0
 django-summernote==0.8.8.2
 -e git+https://github.com/radiac/django-tagulous.git@1e3f3271f24f6f9bb57901e3ca9148d86b003948#egg=django_tagulous
-djangorestframework==3.7.0
+djangorestframework==3.11.2
 djangorestframework-jwt==1.11.0
 filebrowser-safe==0.4.7
 future==0.16.0
