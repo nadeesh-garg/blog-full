@@ -32,7 +32,7 @@ Markdown==2.6.9
 matplotlib==2.2.2
 networkx==2.1
 numexpr==2.6.5
-numpy==1.14.3
+numpy==1.22.0
 oauthlib==2.0.4
 olefile==0.44
 parso==0.2.0
